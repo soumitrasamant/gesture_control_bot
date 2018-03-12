@@ -1,5 +1,5 @@
 # gesture_control_bot
-Engineering Exploration Project for freshman Engineering at KLE Technology University. Gesture control bot uses arduino as platform with ADXL335 and RF transmitter/receiver module to detect gesture and transmit signal for movement.
+Engineering Exploration Project for freshman Engineering at KLE Technological University. Gesture control bot uses arduino as platform with ADXL335 and RF transmitter/receiver module to detect gesture and transmit signal for movement.
 
 The project will be completed in 3 sprints using the agile framework 
 Sprint 1 consists of using the ADXL335 accelerometer mounted on a glove and connected to Arduino nano to detect various gesture orientations and desplay on the Serial Monitor.
