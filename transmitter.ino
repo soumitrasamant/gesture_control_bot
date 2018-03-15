@@ -1,14 +1,13 @@
 /*
  * Project : Gesture Control Toy Car (https://github.com/soumitrasamant/gesture_control_bot/)
  * Author : Soumitra Samant (https://github.com/soumitrasamant)
- * Version : 1.0
+ * Version : 1.1
  */
 
 #include <VirtualWire.h>
 
 int xPin=2;    // X pin of the ADXL335 accelerometer
 int yPin=4;    // Y pin of the ADXL 335 accelerometer
-
 void setup() 
 {
   vw_setup(2000); //Bits per second
@@ -22,51 +21,54 @@ void loop()
   
   // Unomment the next code for debugging and finding the threshold values for different orientations
   
-  //Serial.print("xval=");
-  //Serial.println(xval);
+  Serial.print("xval=");
+  Serial.println(xval);
   
-  //Serial.print("yval=");
-  //Serial.println(yval); 
+  Serial.print("yval=");
+  Serial.println(yval); 
   
   //delay(500);   //used to display values after 1s delay
   
-  //Serial.print("\n");
+  Serial.print("\n");
   
-  if ((xval>349 && xval<376) && (yval>359 && yval<395)) //stationary or stop(transmitter parallel to ground)
+  if ((xval>340 && xval<380) && (yval>350 && yval<395)) //stationary or stop(transmitter parallel to ground)
   {
-    send('s');
+    const char *msg0 = "parallel";
     Serial.println("Parallel");
+    vw_send((uint8_t *)msg0, strlen(msg0));
+    vw_wait_tx();
   } 
   else 
   { 
-    if ((xval>344 && xval<388) && (yval>425 && yval<460)) //forward(transmitter tilted forward)
+    if ((xval>340 && xval<388) && (yval>420 && yval<460)) //forward(transmitter tilted forward)
     {
-      send('f');
-      Serial.println("Forward"); 
+      const char *msg1 = "forward";
+      Serial.println("Forward");
+      vw_send((uint8_t *)msg1, strlen(msg1));
+      vw_wait_tx(); 
     }
-    if ((xval>350 && xval<365) && (yval>280 && yval<300)) //backward(transmitter tilted backward)
+    if ((xval>340 && xval<365) && (yval>270 && yval<300)) //backward(transmitter tilted backward)
     {
-      send('a');
+      const char *msg2 = "backward";
       Serial.println("Backward");
+      vw_send((uint8_t *)msg2, strlen(msg2));
+      vw_wait_tx();
     }
-    if ((xval>280 && xval<300) && (yval>350 && yval<370)) //left(transmitter tilted to left)
+    if ((xval>260 && xval<310) && (yval>330 && yval<390)) //left(transmitter tilted to left)
     {
-      send('l');
+      const char *msg3 = "left";
       Serial.println("Left");
+      vw_send((uint8_t *)msg3, strlen(msg3));
+      vw_wait_tx();
     }
-     if ((xval>420 && xval<451) && (yval>350 && yval<380))//right(transmitter tilted to right)
+     if ((xval>410 && xval<451) && (yval>330 && yval<380))//right(transmitter tilted to right)
     {
-      send('r');
-      Serial.println("Right"); 
+      const char *msg4 = "right";
+      Serial.println("Right");
+      vw_send((uint8_t *)msg4, strlen(msg4));
+      vw_wait_tx(); 
     }
   }
   delay(1000);
   
-}
-
-
-void send(char *message)  //send function definition
-{
-  vw_send((uint8_t *)message, strlen(message));
-  vw_wait_tx(); // Wait until the whole message is gone
 }
